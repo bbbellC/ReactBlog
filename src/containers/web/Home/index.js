@@ -8,13 +8,13 @@ import { openDrawer, closeDrawer } from '../../../redux/modules/common'
 import Tags from '../Article/Tags'
 //import Preview from './preview'
 import Loading from '../../../components/Helper/Loading'
-//import BlogPagination from '@/components/web/pagination'
+import MyPagination from '../Pagination'
 
 import 'highlight.js/styles/github.css';
 
 const NoDataDesc = ({ keyword }) => (
   <Fragment>
-    抱歉~小柠檬找不到标题中含有 <span className="keyword">{keyword}</span> 的文章呢！
+    抱歉~找不到标题中含有 <span className="keyword">{keyword}</span> 的文章鸭！
   </Fragment>
 )
 
@@ -29,18 +29,14 @@ class Home extends Component {
   state = { list: [], total: 0, loading: false, pageSize: 10 }
 
   componentDidMount() {
-    console.log(this.props)
     this.props.closeDrawer()
     const params = decodeQuery(this.props.location.search)
-    console.log(params)
     this.fetchList(params)
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props)
     if (this.props.location.search !== nextProps.location.search) {
       const params = decodeQuery(nextProps.location.search)
-      console.log(params)
       this.fetchList(params)
     }
   }
@@ -50,8 +46,7 @@ class Home extends Component {
     axios
       .get('/article/getList', { params: { page, pageSize: 10, title: keyword } })
       .then(res => {
-        console.log(res);
-        //const list = res.rows
+        //console.log(res);
 	      const list = res.rows
         // 处理 read more 的内容
         list.forEach(item => {
@@ -61,7 +56,7 @@ class Home extends Component {
         this.setState({ list, total: res.count, loading: false })
       })
       .catch(err => {
-        console.log(err)
+        //console.log(err)
 	      this.setState({ loading: false })
       })
   }
@@ -90,8 +85,6 @@ class Home extends Component {
   render() {
     const { list, total, loading, pageSize } = this.state
     const { page, keyword } = decodeQuery(this.props.location.search)
-console.log(list.length)
-console.log(total)
     return (
       <div className="content-inner-wrapper home">
         {loading ? (
@@ -126,9 +119,7 @@ console.log(total)
             {list.length > 0 ? (
               <Fragment>
                 {list.length < total && (
-                  <div className="pagination">
-                    <Pagination current={parseInt(page) || 1} onChange={this.handlePageChange} total={total}  pageSize={pageSize} />
-                  </div>
+                  <MyPagination current={parseInt(page) || 1} onChange={this.handlePageChange} total={total} pageSize={pageSize} />
                 )}
               </Fragment>
             ) : (
@@ -144,64 +135,4 @@ console.log(total)
 }
 
 export default Home
-/*
-<Pagination current={parseInt(page) || 1} onChange={this.handlePageChange} total={total}  pageSize={pageSize} simple={this.props.windowWidth < 736}/>
-
-<div dangerouslySetInnerHTML = {{__html: translateMarkdown("```function bfs(node) {var arr = [];if(node != null) {var queue = [];return arr;}```  " )}}></div>
-          <Fragment>
-            <ul className="ul-list">
-              {list.map(item => (
-                <li key={item.id} className="ul-list-item">
-                  <Divider orientation="left">
-                    <span className="title" onClick={() => this.jumpTo(item.id)}>
-                      {item.title}
-                    </span>
-                    <span className="create-time">{item.createdAt.slice(0, 10)}</span>
-                  </Divider>
-
-                  <div
-                    onClick={() => this.jumpTo(item.id)}
-                    className="article-detail description"
-                    dangerouslySetInnerHTML={{ __html: item.description }}
-                  />
-
-                  <div className="list-item-action">
-                    <Icon type="message" style={{ marginRight: 7 }} />
-                    {getCommentsCount(item.comments)}
-                    <Tags type="tags" list={item.tags} />
-                    <Tags type="categories" list={item.categories} />
-                  </div>
-                </li>
-              ))}
-            </ul>
-            {list.length > 0 ? (
-              <Fragment>
-                {list.length < total && (
-                  <BlogPagination current={parseInt(page) || 1} onChange={this.handlePageChange} total={total} />
-                )}
-
-                {this.props.windowWidth > 1300 ? (
-                  <Preview list={list} />
-                ) : (
-                  <Fragment>
-                    <div className="drawer-btn" onClick={this.props.openDrawer}>
-                      <Icon type="menu-o" className="nav-phone-icon" />
-                    </div>
-                    <Drawer
-                      title="文章导航"
-                      placement="right"
-                      closable={false}
-                      onClose={this.props.closeDrawer}
-                      visible={this.props.drawerVisible}>
-                      <Preview list={list} />
-                    </Drawer>
-                  </Fragment>
-                )}
-              </Fragment>
-            ) : (
-              <div className="no-data">
-                <Empty description={<NoDataDesc keyword={keyword} />} />
-              </div>
-            )}
-          </Fragment>*/
 

@@ -15,7 +15,7 @@ const getArticleList = async (ctx) => {
     let { page = 1, pageSize = 10, title, tag, category, rangTime } = ctx.query,
         offset = (page - 1) * pageSize,
         //titleFilter = title ? { title: { $like: `%${title}%` } } : {}
-        titleFilter = title ? { title: { [Op.like]: `%${title}` } } : {}
+        titleFilter = title ? { title: { [Op.like]: `%${title}%` } } : {}
     // const tagFilter = tag ? { name: { $like: `%${tag}%` } } : {}
     // const categoryFilter = category ? { name: { $like: category } } : {}
     const tagFilter = tag ? { name: tag } : {}

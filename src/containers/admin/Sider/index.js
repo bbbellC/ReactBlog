@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
 import { Menu, Icon } from 'antd';
 
 const SubMenu = Menu.SubMenu;
 
 class AdminSider extends React.Component {
   // submenu keys of first level
-  rootSubmenuKeys = ['sub1', 'sub2'];
+  rootSubmenuKeys = ['article', 'user'];
 
   state = {
-    openKeys: ['sub1'],
+    openKeys: ['article'],
     selectedKeys: []
   };
 
@@ -34,11 +35,26 @@ class AdminSider extends React.Component {
           onOpenChange={this.onOpenChange}
           onClick={({ key }) => this.setState({ selectedKeys: [key] })}
         >
-          <SubMenu key="sub1" title={<span><Icon type="edit" /><span>文章管理</span></span>}>
-            <Menu.Item key="1">新增文章</Menu.Item>
-            <Menu.Item key="2">管理文章</Menu.Item>
+          <SubMenu key="article" title={<span><Icon type="edit" /><span>文章管理</span></span>}>
+            <Menu.Item key="article/create">
+              <NavLink to="admin/article/create">
+                <Icon type="edit" />
+                <span>新增文章</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="article/manage">
+              <NavLink to="admin/article/manage">
+                <Icon type="folder" />
+                <span>管理文章</span>
+              </NavLink>
+            </Menu.Item>
           </SubMenu>
-          <Menu.Item key="sub2"><span><Icon type="user" /><span>用户管理</span></span></Menu.Item>
+          <Menu.Item key="user">
+            <NavLink to="admin/user">
+              <Icon type="user" />
+              <span>用户管理</span>
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </div>
     );

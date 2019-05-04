@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { getTags, getCategories } from '../../../redux/modules/article'
+import Checkable from './Checkable'
+import { translateMarkdown } from '../../../lib/index'
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+import './index.less'
 //import SimpleMDE from 'simplemde'
 //import 'simplemde/dist/simplemde.min.css'
 //import './index.less'
@@ -8,11 +13,19 @@ import { connect } from 'react-redux'
 //import axios from '@/lib/axios'
 
 import { Button, Input, Modal, BackTop } from 'antd'
-//import SelectCate from './components/Cate'
 
-@connect(state => state.article)
+@connect(
+  state => ({
+    tagList: state.article.tagList,
+    categoryList: state.article.categoryList
+  }),
+  { getTags, getCategories }
+)
+
+//@connect(state => state.article)
 class Create extends Component {
   state = {
+    mdeValue: '',
     value: '',
     title: '',
     tagList: [],
@@ -20,13 +33,32 @@ class Create extends Component {
     isEdit: false // 组件状态 更新或创建
   }
 
+  componentDidMount() {
+    this.props.getCategories()
+    this.props.getTags()
+  }
 
-  handleChange = e => {
+  handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  handleChange = value => {
+    this.setState({ mdeValue: value });
+  }
+
   render() {
-    const { title, value, categoryList, tagList, isEdit } = this.state
+    console.log(this.props);
+    /*this.setState({
+      tagList: this.props.tagList,
+      categoryList: this.props.categoryList
+    })
+console.log(this.state)*/
+    // const { title, value, isEdit, categoryList, tagList } = this.state
+    const { title, value, isEdit } = this.state
+    const { categoryList, tagList } = this.props
+//console.log(categoryList)
+//console.log(tagList)
+
     return (
       <div className="edit">
         <div className="blog-formItem">
@@ -36,14 +68,49 @@ class Create extends Component {
             className="title-input"
             name="title"
             value={title}
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
           />
         </div>
-
+        <Checkable
+          type="category"
+          list={categoryList}
+          isEdit={isEdit}
+        />
+        <Checkable
+          type="tag"
+          list={tagList}
+          isEdit={isEdit}
+        />
+        <br />
+        <SimpleMDE
+          id="editor"
+          value={this.state.mdeValue}
+          onChange={this.handleChange}
+          options={{
+            autofocus: true,
+            spellChecker: false,
+            previewRender: translateMarkdown
+          }}
+        />
       </div>
     )
   }
 }
 
 export default Create
+
+/*
+,
+previewRender(text) {
+  return ReactDOMServer.renderToString(
+    <ReactMarkdown
+      source={text}
+      renderers={{
+        CodeBlock: CodeRenderer,
+        Code: CodeRenderer
+      }}
+    />
+  );
+}
+*/
 

@@ -18,14 +18,14 @@ const { TextArea } = Input
 const Editor = ({ onChange, onSubmit, submitting, value, articleId }) => (
   <div>
     <Form.Item>
-      <TextArea rows={4} placeholder="天青色等烟雨，而我在等你评论..." onChange={onChange} value={value} />
+      <TextArea rows={4} placeholder="天青色等烟雨，而我在等你..." onChange={onChange} value={value} />
     </Form.Item>
     <Form.Item>
       <div className="controls">
-        <i className="iconfont icon-tip-2" />
+        <i className="iconfont icon-tip-" />
         <span className="support-tip">支持 Markdown 语法</span>
         <Button className="" htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-          {articleId !== -1 ? '添加评论' : '留言'}
+          {articleId !== 0 ? '添加评论' : '留言'}
         </Button>
       </div>
     </Form.Item>
@@ -122,7 +122,7 @@ console.log(commentList)
       <div className="comment-wrapper">
         <div className="comment-header">
           <span className="count">{getCommentsCount(commentList)}</span>{' '}
-          {articleId !== -1 ? '条评论' : '条留言'}
+          {articleId !== 0 ? '条评论' : '条留言'}
           <span className="menu-wrap">
             <Dropdown overlay={this.renderDropdownMenu()} trigger={['click', 'hover']}>
               <span>

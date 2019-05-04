@@ -64,11 +64,17 @@ const del = async (ctx) => {
   }
 };
 
+const getAboutComments = async (ctx) => {
+  const data = await getCommentList(0)
+  ctx.body = { code: 200, ...data }
+}
+
 module.exports = {
     'POST /comment': createComment,
     'DELETE /comment/del': del,
     'POST /reply': createReply,
-    'DELETE /reply/del': del
+    'DELETE /reply/del': del,
+    'GET /comment/about': getAboutComments
     //'GET /comment/getList': getArticleList,
 };
 

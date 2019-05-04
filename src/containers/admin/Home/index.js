@@ -36,7 +36,7 @@ class AdminHome extends Component {
                 background: '#fff',
                 minHeight: 280
               }}>
-              <Route path={`${this.props.match.path}/create`} component={Create} />
+              <Route path={`${this.props.match.path}/article/create`} component={Create} />
             </Content>
             <Footer style={{ textAlign: 'center' }}>React-Admin ©2019 Created by bbbellCAI@163.com </Footer>
           </Layout>

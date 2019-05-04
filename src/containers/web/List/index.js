@@ -15,7 +15,6 @@ class List extends Component {
   // 请求数据
   componentDidMount() {
     const params = this.decodeQuery(this.props)
-    console.log(params)
     this.setState({ type: params.type }, this.fetchList({ page: 1, ...params }))
   }
 
@@ -39,8 +38,6 @@ class List extends Component {
     axios
       .get(`/${type}/getArticles`, { params: { page, pageSize: 15, name } })
       .then(res => {
-        console.log(res)
-        //
         this.setState({ list: res.rows, total: res.count, loading: false })
       })
       .catch(e => {
@@ -50,11 +47,8 @@ class List extends Component {
   }
 
   render() {
-console.log("in List.js ..")
     const { list, type, total, loading } = this.state
     const { name } = this.props.match.params
-    console.log("list=")
-    console.log(list)
 
     return (
       <div className="content-inner-wrapper list-page">

@@ -37,8 +37,8 @@ console.log(res)
 
   render() {
     const { tagList, colorList } = this.props
-//console.log(tagList)
-console.log(colorList)
+console.log(tagList)
+//console.log(colorList)
     const { articleList } = this.state
     return (
       <div className="sider-wrapper">
