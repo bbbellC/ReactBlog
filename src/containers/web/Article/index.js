@@ -4,14 +4,10 @@ import axios from '../../../lib/axios'
 import { connect } from 'react-redux'
 import { translateMarkdown, getCommentsCount } from '../../../lib'
 import { openDrawer, closeDrawer, generateColorMap } from '../../../redux/modules/common'
-
-//import Navigation from './navigation'
-import Loading from '../../../components/Helper/Loading'
+import Loading from '../../../components/Loading'
 import Tags from './Tags'
 import Comment from '../Comment'
 import { Drawer, Icon, Divider } from 'antd'
-
-//import 'highlight.js/styles/github.css';
 
 @connect(
   state => ({

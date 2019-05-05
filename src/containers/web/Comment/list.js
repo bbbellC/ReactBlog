@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import AuthorAvatar from '../../../components/AuthorAvatar'
 import axios from '../../../lib/axios'
-import { random, groupBy, translateMarkdown } from '../../../lib'
+import { translateMarkdown } from '../../../lib'
 import { Comment, Avatar, Button, Tooltip, Input, Icon, Popconfirm, message } from 'antd'
 import moment from 'moment'
 
@@ -54,8 +54,6 @@ class CommentList extends Component {
         commentId: this.state.commentId
       })
       .then(res => {
-console.log("in list-onSubmit-axios.post-reply...")
-        console.log(res)
         this.props.setCommentList(res.rows)
         this.setState({ commentId: 0, levelOneId: 0, levelTwoId: 0, value: '' })
       })
@@ -63,13 +61,10 @@ console.log("in list-onSubmit-axios.post-reply...")
 
   // 删除评论或回复
   delComment = (item, commentId) => {
-    console.log(item)
-console.log(commentId)
     if (item.replies) {
       axios.delete('/comment/del', { params: { commentId: item.id } }).then(res => {
         if (res.code !== 200) return message.error(res.message)
         const list = this.props.commentList.filter(d => d.id !== item.id)
-        console.log(list)
         this.props.setCommentList(list)
         message.success(res.message)
       })
@@ -80,7 +75,6 @@ console.log(commentId)
         list.forEach(d => {
           if (d.id === commentId) d.replies = d.replies.filter(v => v.id !== item.id)
         })
-        console.log(list)
         this.props.setCommentList(list)
         message.success(res.message)
       })
@@ -98,24 +92,19 @@ console.log(commentId)
 
   // 生成用户头像
   renderAvatar = item => {
-    const { userId, colorMap } = this.props
+    const { colorMap } = this.props
     if (item.userId === 1) return <AuthorAvatar /> // userId = 1 博主~~~
-    /*if (item.userId === userId) {
-      return <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-    } else {*/
-      return (
-        <Avatar
-          className="user-avatar"
-          size="default"
-          style={{ backgroundColor: colorMap[item.userId] || '#ccc' }}>
-          {item.user && item.user.username}
-        </Avatar>
-      )
-    //}
+    return (
+      <Avatar
+        className="user-avatar"
+        size="default"
+        style={{ backgroundColor: colorMap[item.userId] || '#d19a66' }}>
+        {item.user && item.user.username}
+      </Avatar>
+    )
   }
 
   render() {
-console.log(this.props)
     const { commentList, auth } = this.props
     const { levelOneId, value, levelTwoId } = this.state
 

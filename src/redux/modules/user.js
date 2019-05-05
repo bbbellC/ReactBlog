@@ -25,26 +25,20 @@ export const types = {
 
 // action creators
 export const login = ({ username, password }) => {
-console.log("in login ..")
   return dispatch =>
     axios.post('/login', { username, password }).then(res => {
-      //console.log(res.data)
       if (res.code === 200) {
         localStorage.setItem('token', res.token)
         dispatch({ type: types.USER_LOGIN, payload: { token: res.token } })
-console.log("login success")
       } else {
-console.log("login error..")
         message.error(res.message)       
       }
       return res
     })
 }
 export const register = ({ username, password }) => {
-console.log("in register ..")
   return dispatch =>
     axios.post('/register', { username, password }).then(res => {
-console.log(res)
       if (res.code === 200) message.success(res.message)
       else message.error(res.message)
       return res
@@ -58,14 +52,9 @@ export const logout = () => {
 // reducer
 export const reducer = (state = initialState, action) => {
   const { type, payload } = action
-//console.log(type)
-//console.log(payload)
   switch (type) {
     case types.USER_LOGIN:
       const { userId, username, auth } = jwtDecode(payload.token)
-//console.log(userId)
-//console.log(username)
-//console.log(state)
       return { ...state, userId, username, auth }
 
     case types.USER_LOGINOUT:

@@ -13,13 +13,10 @@ let timer
 instance.interceptors.request.use(
   config => {
     const token = localStorage.getItem('token')
-    //console.log("in axios interceptors")
-    //console.log(token)
     if (token) {
       //config.headers.common['Authorization'] = 'Bearer ' + token
       config.headers.Authorization = 'Bearer ' + token
     }
-    //console.log(config);
     return config
   },
   error => {
@@ -68,4 +65,3 @@ instance.interceptors.response.use(
 )
 
 export default instance
-//module.export = instance

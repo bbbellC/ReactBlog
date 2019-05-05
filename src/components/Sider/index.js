@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import { getTags } from '../../redux/modules/article'
 import axios from '../../lib/axios'
 import avatar from '../../assets/me.jpg'
-// import { Divider, Tag, Icon } from 'antd'
-import { Divider, Tag } from 'antd'
+import { Divider, Tag, Icon } from 'antd'
 import './index.less'
 
 @connect(
@@ -26,26 +25,35 @@ class Sider extends Component {
     axios
       .get('/article/getList', { params: { page: 1, pageSize: 6 } })
       .then(res => {
-console.log(res)
         this.setState({ articleList: res.rows })
       })
       .catch(err => {
-        console.log(err)
       })
 
   }
 
   render() {
     const { tagList, colorList } = this.props
-console.log(tagList)
-//console.log(colorList)
     const { articleList } = this.state
     return (
       <div className="sider-wrapper">
         <img src={avatar} className="sider-avatar" alt="" />
         <h2 className="name">晓铃檬</h2>
         <div className="title">奋斗·前端小白白</div>
-
+        <div className="link-list">
+          <div className="link-item">
+            <Icon type="github" />
+            <a target="_blank" rel="noreferrer noopener" href="https://github.com/bbbellC">
+              github
+            </a>
+          </div>
+          <div className="link-item">
+            <i className="iconfont icon-iconsf-copy" style={{ color: '#009A61' }} />
+            <a target="_blank" rel="noreferrer noopener" href="https://segmentfault.com/blog/xiaoling">
+              segmentfault
+            </a>
+          </div>
+        </div>
         <Divider orientation="left">新鲜出炉·文章</Divider>
         <ul className="recent-list">
           {articleList.map(a => (

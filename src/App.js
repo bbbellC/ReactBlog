@@ -10,7 +10,6 @@ import Categories from "./containers/web/Categories";
 import About from "./containers/web/About";
 import adminHome from "./containers/admin/Home";
 //import Login from "./components/Login";
-import WebLayout from "./components/Layout";
 import Header from "./components/Header";
 import Sider from "./components/Sider";
 import { Layout, Row, Col } from 'antd'
@@ -28,8 +27,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.tagList);
-    console.log(this.props.categoryList);
     const siderLayout = { xxl: 4, xl: 5, lg: 5, sm: 0, xs: 0 }
     const contentLayout = { xxl: 20, xl: 19, lg: 19, sm: 24, xs: 24 }
     return (
@@ -66,5 +63,4 @@ class App extends Component {
 }
 
 export default App;
-//                      <Route exact path="/about" component={About}/>
 

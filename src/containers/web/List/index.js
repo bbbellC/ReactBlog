@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from '../../../lib/axios'
-import { Timeline, Pagination, Spin } from 'antd'
+import { Timeline, Spin } from 'antd'
 import './index.less'
 
 class List extends Component {
@@ -40,9 +40,8 @@ class List extends Component {
       .then(res => {
         this.setState({ list: res.rows, total: res.count, loading: false })
       })
-      .catch(e => {
-	console.log(e)	
-	this.setState({ loading: false }) 
+      .catch(e => {	
+	      this.setState({ loading: false }) 
       })
   }
 

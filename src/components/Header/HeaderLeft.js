@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 // import DropdownMenu from './nav'
 
 const HeaderLeft = ({ navList }) => {
-    const aa = (
+    const overlay = (
         <Menu className="header-nav">
             {navList.map(nav => (
                 <Menu.Item key={nav.link}>
@@ -20,9 +20,9 @@ const HeaderLeft = ({ navList }) => {
 
     return (
         <div className="header-left">
-            <i className="iconfont icon-lemon1" style={{ color: '#FCE100' }} />
+            <i className="iconfont icon-flower" style={{ color: '#DD8D56' }} />
             <span className="blog-name">柠檬味的博客</span>
-            <Dropdown overlayClassName="header-dropdown" trigger={['click']} overlay={aa}>
+            <Dropdown overlayClassName="header-dropdown" trigger={['click']} overlay={overlay}>
                 {/* <Dropdown overlayClassName="header-dropdown" trigger={['click']} overlay={<DropdownMenu navList={navList} />}> */}
                 <Icon type="menu-o" className="nav-phone-icon" />
             </Dropdown>

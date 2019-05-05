@@ -18,17 +18,12 @@ export const types = {
 export const getTags = () => {
   return dispatch =>
     axios.get('/tags/getList').then(res => {
-console.log("in axios.get('/tags/getList')..");
-console.log(res.data);
       dispatch({ type: types.TAG_GETLIST, payload: res.data })
     })
 }
-
 export const getCategories = () => {
   return dispatch =>
     axios.get('/categories/getList').then(res => {
-console.log("in axios.get('/categories//getList')..");
-console.log(res.data);
       dispatch({ type: types.CATEGORY_GETLIST, payload: res.data })
     })
 }
@@ -46,15 +41,6 @@ const reducer = (state = initialState, action) => {
     }
 };
 export default reducer;
-
-// selectors
-/*
-export const getPostIds = state => state.posts.allIds;
-
-export const getPostList = state => state.posts.byId;
-
-export const getPostById = (state, id) => state.posts.byId[id];
-*/
 
 
 

@@ -1,29 +1,11 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Modal, Input, Icon, message, Button, Form } from 'antd'
 import { login, register } from '../../redux/modules/user'
 import { closeAuthModal } from '../../redux/modules/common'
-//import FormBuilder from '@/components/helper/FormBuilder'
+import { Modal, Input, Icon, Button, Form } from 'antd'
+
 const FormItem = Form.Item
-/*const formMeta = {
-  elements: [
-    {
-      key: 'username',
-      widget: (
-        <Input placeholder="Username" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-      ),
-      rules: [{ required: true, message: 'Username is required' }]
-    },
-    {
-      key: 'password',
-      widget: (
-        <Input placeholder="Password" type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-      ),
-      rules: [{ required: true, message: 'Password is required' }]
-    }
-  ]
-}*/
+
 @connect(
   state => ({
     loginModalVisible: state.common.loginModalVisible,
@@ -43,10 +25,8 @@ class AuthModel extends Component {
   handleSubmit = e => {
     e.preventDefault()
     this.props.form.validateFieldsAndScroll((errors, values) => {
-      console.log("in handleSubmit ...")
       if (errors) return
       const { type } = this.state
-console.log(type)
       this.props[type](values).then(res => {
         if (res.code === 200) this.props.closeAuthModal(type)
       })
@@ -58,10 +38,10 @@ console.log(type)
   render() {
     const { type } = this.state
     const { loginModalVisible, registerModalVisible } = this.props
-const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
     return (
       <Modal
-        title={type}
+        title={type == 'login' ? '登录' : '注册'}
         width={320}
         footer={null}
         onCancel={this.handleClose}
@@ -70,21 +50,21 @@ const { getFieldDecorator } = this.props.form;
           {/*<FormBuilder meta={formMeta} form={this.props.form} />*/}
           <FormItem>
             {getFieldDecorator('username', {
-              rules: [{ required: true, message: 'Please input your username!' }],
+              rules: [{ required: true, message: '请输入您的账号!' }],
             })(
-              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="账号" />
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
+              rules: [{ required: true, message: '请输入您的密码!' }],
             })(
-              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
             )}
           </FormItem>
           <FormItem>
             <Button type="primary" block htmlType="submit">
-              {type}
+              {type == 'login' ? '登录' : '注册'}
             </Button>
           </FormItem>
         </Form>

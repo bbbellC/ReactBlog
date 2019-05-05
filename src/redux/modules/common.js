@@ -20,39 +20,11 @@ export const types = {
     COMMON_COLOR_MAP: 'COMMON_COLOR_MAP'
 };
 
-
 //action creators
-/*export const actions = {
-    openAuthModal: type => {
-      return { type: constants.AUTH_OPEN_AUTHMODAL, payload: type }
-    }
-
-    closeAuthModal: type => {
-      return { type: constants.AUTH_CLOSE_AUTHMODAL, payload: type }
-    }
-
-    getWindowWidth: () => {
-      const body = document.getElementsByTagName('body')[0]
-      return { type: constants.COMMON_GET_WINDOW_WIDTH, payload: body.clientWidth }
-    }
-
-    openDrawer: () => ({
-      type: constants.COMMON_OPEN_DRAWER
-    })
-
-    closeDrawer: () => ({
-      type: constants.COMMON_CLOSE_DRAWER
-    })
-
-    generateColorMap: commentList => ({
-      type: constants.COMMON_COLOR_MAP,
-      payload: commentList // 生成头像的颜色匹配
-    })
-}*/
-    /**
-     * 打开对话框
-     * @param {String} type login / register
-     */
+/**
+ * 打开对话框
+ * @param {String} type login / register
+ */
 export const openAuthModal = type => {
   return { type: types.AUTH_OPEN_AUTHMODAL, payload: type }
 }
@@ -78,7 +50,6 @@ export const generateColorMap = commentList => ({
   type: types.COMMON_COLOR_MAP,
   payload: commentList // 生成头像的颜色匹配
 })
-
 
 // reducers
 const reducer = (state = initialState, action) => {
@@ -115,7 +86,6 @@ const reducer = (state = initialState, action) => {
           return state
     }
 };
-export default reducer;
 
-// selectors
+export default reducer;
 

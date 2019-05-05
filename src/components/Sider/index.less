@@ -20,29 +20,26 @@
     margin-bottom: 5px;
   }
   .link-list {
-    width: 160px;
     line-height: 24px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
     a {
       vertical-align: top;
       padding-left: 5px;
       color: inherit;
     }
-    li {
+    .link-item {
       padding: 0 4px;
       cursor: pointer;
     }
-    li:hover {
+    .link-item:hover {
       border-radius: 4px;
       background: #eee;
     }
   }
   .recent-list {
     text-align: left;
+    list-style: url("../../assets/circle1.png");
     li {
-      padding: 0 20px;
+      padding: 0 10px;
       a {
         display: block;
         overflow: hidden;
@@ -50,11 +47,11 @@
         text-overflow: ellipsis;
         font-size: 14px;
         line-height: 32px;
-        color: #8590a6;
+	color: rgba(0, 0, 0, 0.65);
         cursor: pointer;
       }
       &:hover {
-        background: #f0f2f5;
+        background: #eee;
         a {
           color: #EE8D66;
         }

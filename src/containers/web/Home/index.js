@@ -1,16 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import './index.less'
 import { connect } from 'react-redux'
-import { Row, Col, BackTop, Icon, Divider, Empty, Drawer, Pagination } from 'antd'
+import { Icon, Divider, Empty } from 'antd'
 import axios from '../../../lib/axios'
 import { translateMarkdown, decodeQuery, getCommentsCount } from '../../../lib'
 import { openDrawer, closeDrawer } from '../../../redux/modules/common'
 import Tags from '../Article/Tags'
-//import Preview from './preview'
-import Loading from '../../../components/Helper/Loading'
+import Loading from '../../../components/Loading'
 import MyPagination from '../Pagination'
-
-import 'highlight.js/styles/github.css';
 
 const NoDataDesc = ({ keyword }) => (
   <Fragment>
@@ -46,7 +43,6 @@ class Home extends Component {
     axios
       .get('/article/getList', { params: { page, pageSize: 10, title: keyword } })
       .then(res => {
-        //console.log(res);
 	      const list = res.rows
         // 处理 read more 的内容
         list.forEach(item => {
@@ -56,7 +52,6 @@ class Home extends Component {
         this.setState({ list, total: res.count, loading: false })
       })
       .catch(err => {
-        //console.log(err)
 	      this.setState({ loading: false })
       })
   }
@@ -69,7 +64,6 @@ class Home extends Component {
   handlePageChange = page => {
     document.querySelector('.content-wrapper').scrollTop = 0
     let params = { ...decodeQuery(this.props.location.search), page }
-    console.log(params)
 
     let url
     Object.entries(params).forEach(item => {

@@ -1,18 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
 import axios from '../../../lib/axios'
 import { getCommentsCount } from '../../../lib'
 import { openAuthModal } from '../../../redux/modules/common'
 import { logout } from '../../../redux/modules/user'
 import AuthorAvatar from '../../../components/AuthorAvatar'
-
 import CommentList from './list'
-
 import { Comment, Avatar, Form, Button, Divider, Input, Icon, Menu, Dropdown, message } from 'antd'
 import './index.less'
-
 
 const { TextArea } = Input
 const Editor = ({ onChange, onSubmit, submitting, value, articleId }) => (
@@ -45,7 +41,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, articleId }) => (
 
 class ArticleComment extends Component {
   static propTypes = {
-    articleId: PropTypes.number, // 文章 id，如果为 -1 则代表是自由评论区！
+    articleId: PropTypes.number, // 文章 id，如果为 0 则是留言区！
     commentList: PropTypes.array, // 评论列表
     setCommentList: PropTypes.func
   }
@@ -70,11 +66,9 @@ class ArticleComment extends Component {
     axios
       .post('/comment', { articleId: this.props.articleId, content: this.state.value })
       .then(res => {
-console.log(res)
         this.setState({ submitting: false, value: '' }, () => this.props.setCommentList(res.rows))
       })
       .catch(err => this.setState({ submitting: false }))
-
   }
 
   handleChange = e => {
@@ -114,9 +108,6 @@ console.log(res)
   render() {
     const { submitting, value } = this.state
     const { username, articleId, userId, commentList, colorMap } = this.props
-console.log(commentList)
-//console.log(userId)
-//console.log(username)
 
     return (
       <div className="comment-wrapper">
@@ -138,11 +129,10 @@ console.log(commentList)
             username ? (
               <Fragment>
                 {userId !== 1 ? (
-                  //<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                   <Avatar
                     className="user-avatar"
                     size="default"
-                    style={{ backgroundColor: colorMap[userId] || '#ccc' }}>
+                    style={{ backgroundColor: colorMap[userId] || '#d19a66' }}>
                     {username}
                   </Avatar>
                 ) : (
@@ -164,7 +154,7 @@ console.log(commentList)
           }
         />
 
-	<CommentList
+	      <CommentList
           commentList={commentList}
           articleId={articleId}
           setCommentList={this.props.setCommentList}

@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react'
-
 import { connect } from 'react-redux'
 import { register, logout } from '../../redux/modules/user'
 import { openAuthModal } from '../../redux/modules/common'
-
 import { Button, Dropdown, Avatar, Menu } from 'antd'
 import AuthModal from './AuthModal'
 
@@ -33,7 +31,6 @@ class UserInfo extends Component {
   }
 
   render() {
-//console.log(this.props)
     const { username, avatarColor } = this.props
     return (
       <div id="header-userInfo">
