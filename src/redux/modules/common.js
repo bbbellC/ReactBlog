@@ -6,7 +6,6 @@ const initialState = {
     loginModalVisible: false,
     registerModalVisible: false,
     windowWidth: 0,
-    drawerVisible: false,
     colorMap: {}
 }
 
@@ -15,8 +14,6 @@ export const types = {
     AUTH_OPEN_AUTHMODAL: 'AUTH_OPEN_AUTHMODAL',
     AUTH_CLOSE_AUTHMODAL: 'AUTH_CLOSE_AUTHMODAL',
     COMMON_GET_WINDOW_WIDTH: 'COMMON_GET_WINDOW_WIDTH',
-    COMMON_OPEN_DRAWER: 'COMMON_OPEN_DRAWER' ,
-    COMMON_CLOSE_DRAWER: 'COMMON_CLOSE_DRAWER',
     COMMON_COLOR_MAP: 'COMMON_COLOR_MAP'
 };
 
@@ -38,14 +35,6 @@ export const getWindowWidth = () => {
   return { type: types.COMMON_GET_WINDOW_WIDTH, payload: body.clientWidth }
 }
 
-export const openDrawer = () => ({
-  type: types.COMMON_OPEN_DRAWER
-})
-
-export const closeDrawer = () => ({
-  type: types.COMMON_CLOSE_DRAWER
-})
-
 export const generateColorMap = commentList => ({
   type: types.COMMON_COLOR_MAP,
   payload: commentList // 生成头像的颜色匹配
@@ -63,12 +52,6 @@ const reducer = (state = initialState, action) => {
 
         case types.COMMON_GET_WINDOW_WIDTH:
           return { ...state, windowWidth: payload }
-
-        case types.COMMON_OPEN_DRAWER:
-          return { ...state, drawerVisible: true }
-
-        case types.COMMON_CLOSE_DRAWER:
-          return { ...state, drawerVisible: false }
 
         case types.COMMON_COLOR_MAP:
           const list = groupBy(payload, item => item.userId)

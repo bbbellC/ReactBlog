@@ -2,10 +2,10 @@ import React from 'react'
 import './index.less'
 
 import { Layout, Row, Col } from 'antd'
-import HeaderLeft from './HeaderLeft'
-import Search from './Search'
-import Nav from './Nav'
-import UserInfo from './UserInfo'
+import HeaderLeft from './components/HeaderLeft'
+import Search from './components/Search'
+import Nav from './components/Nav'
+import UserInfo from './components/UserInfo'
 
 const Header = Layout.Header
 

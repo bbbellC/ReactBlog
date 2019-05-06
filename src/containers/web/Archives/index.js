@@ -33,7 +33,7 @@ class Archives extends Component {
   render() {
     const { list, total, current, loading } = this.state
     return (
-      <div className="content-inner-wrapper archives">
+      <div className="archives content-inner-wrapper">
         <Spin tip="马不停蹄加载中..." spinning={loading}>
           <Timeline>
             {list.map((l, i) => (

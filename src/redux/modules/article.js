@@ -4,7 +4,6 @@ import axios from '../../lib/axios'
 const initialState = {
     categoryList: [],
     tagList: [],
-    recentList: []
 }
 
 //action types

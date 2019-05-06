@@ -8,7 +8,7 @@ let initialState = {
   userId: 0,
   username: '',
   auth: 0,
-  avatarColor: '#52c41a' // 用户头像颜色
+  avatarColor: '#d19a66' // 用户头像颜色
 }
 
 if (!!localStorage.getItem('token') && localStorage.getItem('token') !== "undefined") {
@@ -58,7 +58,7 @@ export const reducer = (state = initialState, action) => {
       return { ...state, userId, username, auth }
 
     case types.USER_LOGINOUT:
-      return { id: 0, username: '', auth: 0, avatarColor: '#52c41a' }
+      return { id: 0, username: '', auth: 0, avatarColor: '#d19a66' }
 
     default:
       return state

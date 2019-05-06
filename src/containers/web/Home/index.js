@@ -4,10 +4,9 @@ import { connect } from 'react-redux'
 import { Icon, Divider, Empty } from 'antd'
 import axios from '../../../lib/axios'
 import { translateMarkdown, decodeQuery, getCommentsCount } from '../../../lib'
-import { openDrawer, closeDrawer } from '../../../redux/modules/common'
 import Tags from '../Article/Tags'
 import Loading from '../../../components/Loading'
-import MyPagination from '../Pagination'
+import MyPagination from './MyPagination'
 
 const NoDataDesc = ({ keyword }) => (
   <Fragment>
@@ -19,14 +18,12 @@ const NoDataDesc = ({ keyword }) => (
   state => ({
     drawerVisible: state.common.drawerVisible,
     windowWidth: state.common.windowWidth
-  }),
-  { openDrawer, closeDrawer }
+  })
 )
 class Home extends Component {
   state = { list: [], total: 0, loading: false, pageSize: 10 }
 
   componentDidMount() {
-    this.props.closeDrawer()
     const params = decodeQuery(this.props.location.search)
     this.fetchList(params)
   }
@@ -70,10 +67,6 @@ class Home extends Component {
       url = !url ? `?${item[0]}=${item[1]}` : `${url}&${item[0]}=${item[1]}`
     })
     this.props.history.push(url)
-  }
-
-  componentWillUnmount() {
-    this.props.closeDrawer()
   }
 
   render() {

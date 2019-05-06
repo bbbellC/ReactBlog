@@ -3,10 +3,10 @@ import './index.less'
 import axios from '../../../lib/axios'
 import { connect } from 'react-redux'
 import { translateMarkdown, getCommentsCount } from '../../../lib'
-import { openDrawer, closeDrawer, generateColorMap } from '../../../redux/modules/common'
+import { generateColorMap } from '../../../redux/modules/common'
 import Loading from '../../../components/Loading'
 import Tags from './Tags'
-import Comment from '../Comment'
+import Comment from './Comment'
 import { Drawer, Icon, Divider } from 'antd'
 
 @connect(
@@ -14,7 +14,7 @@ import { Drawer, Icon, Divider } from 'antd'
     windowWidth: state.common.windowWidth,
     drawerVisible: state.common.drawerVisible
   }),
-  { openDrawer, closeDrawer, generateColorMap }
+  { generateColorMap }
 )
 class Article extends Component {
   state = {
@@ -44,8 +44,6 @@ class Article extends Component {
     axios
       .get(`/article/${id}`)
       .then(res => {
-console.log("get `/article/${id}` successfully..")
-        console.log(res);
         const content = translateMarkdown(res.data.content)
         const { title, createdAt, tags, categories, comments } = res.data
         this.props.generateColorMap(comments)
@@ -60,7 +58,6 @@ console.log("get `/article/${id}` successfully..")
         })
       })
       .catch(err => {
-console.log(err);
         this.props.history.push('/404')
       })
   }
@@ -70,7 +67,6 @@ console.log(err);
   render() {
     const { title, tags, categories, content, postTime, commentList, loading } = this.state
     const articleId = parseInt(this.props.match.params.id)
-//console.log("get Article.js ..")
     return (
       <div className="content-inner-wrapper article">
         {loading ? (
@@ -81,7 +77,7 @@ console.log(err);
               <h1 className="post-title">{title}</h1>
               <div className="others">
                 <i className="iconfont icon-fabuzhiwei" />
-                &nbsp; Posted on &nbsp;
+                &nbsp; 发表于 &nbsp;
                 <span>{postTime}</span>
                 <Tags type="tags" list={tags} />
                 <Tags type="categories" list={categories} />
@@ -100,34 +96,4 @@ console.log(err);
 }
 
 export default Article
-
-/*
-<i className="iconfont icon-post" />
-
-	    {this.props.windowWidth > 1300 ? (
-              <div className="right-navigation">
-                <Navigation content={content} />
-              </div>
-            ) : (
-              <Fragment>
-                <div className="drawer-btn" onClick={this.props.openDrawer}>
-                  <Icon type="menu-o" className="nav-phone-icon" />
-                </div>
-                <Drawer
-                  title={title}
-                  placement="right"
-                  closable={false}
-                  onClose={this.props.closeDrawer}
-                  visible={this.props.drawerVisible}>
-                  <div className="right-navigation">
-                    <Navigation content={content} />
-                  </div>
-                </Drawer>
-              </Fragment>
-            )}
-
-
-          </React.Fragment>
-        )}
-*/
 
