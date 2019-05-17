@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import {Input, Tooltip, Icon, Tag } from 'antd'
 
-
-//@connect(state => state.article)
-class Edit extends Component {
+class SelfCheckable extends Component {
   state = {
     list: [], //新输入的标签/类别列表
     inputVisible: false,  //输入框可见
@@ -43,14 +41,13 @@ class Edit extends Component {
   saveInputRef = input => (this.input = input)
 
   render() {
-    //console.log(this.props);
     const { list, inputVisible, inputValue } = this.state
     return (
       <Fragment>
         {list.map((item, index) => {
           const isTooLong = item.length > 20
           const newItem = (
-            <Tag key={item} closable afterClose={() => this.handleClose(item)} color="#ee8d66">
+            <Tag key={item} closable onClose={() => this.handleClose(item)} color="#ee8d66">
               {isTooLong ? `${item.slice(0, 20)}...` : item}
             </Tag>
           )
@@ -86,5 +83,5 @@ class Edit extends Component {
   }
 }
 
-export default Edit
+export default SelfCheckable
 

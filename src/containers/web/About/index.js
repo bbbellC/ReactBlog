@@ -21,7 +21,6 @@ class About extends Component {
 
   fetchList = () => {
     axios.get('/comment/about').then(res => {
-      console.log(res)
       this.props.generateColorMap(res.rows) // 生成头像的颜色匹配
       this.setState({ commentList: res.rows })
     })

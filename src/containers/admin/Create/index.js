@@ -2,18 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getTags, getCategories } from '../../../redux/modules/article'
 import Checkable from './Checkable'
+import axios from '../../../lib/axios'
 import { translateMarkdown } from '../../../lib/index'
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import './index.less'
-//import SimpleMDE from 'simplemde'
-//import 'simplemde/dist/simplemde.min.css'
-//import './index.less'
-//import { translateMarkdown } from '@/lib/index'
-//import axios from '@/lib/axios'
-
-import { Button, Input, Modal, BackTop } from 'antd'
-
+import { Button, Input, Modal } from 'antd'
+//import { Button, Input, Modal, BackTop } from 'antd'
 @connect(
   state => ({
     tagList: state.article.tagList,
@@ -22,11 +17,9 @@ import { Button, Input, Modal, BackTop } from 'antd'
   { getTags, getCategories }
 )
 
-//@connect(state => state.article)
 class Create extends Component {
   state = {
     mdeValue: '',
-    value: '',
     title: '',
     tagList: [],
     categoryList: [],
@@ -46,18 +39,32 @@ class Create extends Component {
     this.setState({ mdeValue: value });
   }
 
+  handleSubmit = () => {
+    const categories = this.cateCheck.getChecked()
+    const tags = this.tagCheck.getChecked()
+    let data = {
+      title: this.state.title,
+      content: this.state.mdeValue,
+      categories,
+      tags
+    }
+    if (this.state.isEdit) {
+
+    } else {
+      axios.post('/article/create', data).then(res => {
+        Modal.confirm({
+          title: '成功创建文章！去看看吧！',
+          onOk: () => this.props.history.push(`/article/${res.data.id}`),
+	  okText: "好的",
+          cancelText: "不啦"
+        })
+      })
+    }
+  }
+
   render() {
-    console.log(this.props);
-    /*this.setState({
-      tagList: this.props.tagList,
-      categoryList: this.props.categoryList
-    })
-console.log(this.state)*/
-    // const { title, value, isEdit, categoryList, tagList } = this.state
     const { title, value, isEdit } = this.state
     const { categoryList, tagList } = this.props
-//console.log(categoryList)
-//console.log(tagList)
 
     return (
       <div className="edit">
@@ -75,11 +82,13 @@ console.log(this.state)*/
           type="category"
           list={categoryList}
           isEdit={isEdit}
+          ref={(c) => {this.cateCheck = c}}
         />
         <Checkable
           type="tag"
           list={tagList}
           isEdit={isEdit}
+          ref={(c) => {this.tagCheck = c}}
         />
         <br />
         <SimpleMDE
@@ -92,6 +101,9 @@ console.log(this.state)*/
             previewRender: translateMarkdown
           }}
         />
+        <Button onClick={this.handleSubmit} type="primary">
+          {isEdit ? '更新' : '创建'}
+        </Button>
       </div>
     )
   }

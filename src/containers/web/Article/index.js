@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './index.less'
 import axios from '../../../lib/axios'
 import { connect } from 'react-redux'
@@ -7,7 +7,7 @@ import { generateColorMap } from '../../../redux/modules/common'
 import Loading from '../../../components/Loading'
 import Tags from './Tags'
 import Comment from './Comment'
-import { Drawer, Icon, Divider } from 'antd'
+import { Icon, Divider } from 'antd'
 
 @connect(
   state => ({

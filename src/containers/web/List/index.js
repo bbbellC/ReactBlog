@@ -46,7 +46,7 @@ class List extends Component {
   }
 
   render() {
-    const { list, type, total, loading } = this.state
+    const { list, type, loading } = this.state
     const { name } = this.props.match.params
 
     return (

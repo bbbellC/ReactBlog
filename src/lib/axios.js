@@ -1,10 +1,9 @@
-import { message } from 'antd'
+﻿import { message } from 'antd'
 const axios = require('axios');
 
 const instance = axios.create({
-    baseURL: 'http://112.74.43.202:8086',
-    //baseURL: 'http://127.0.0.1:8086',
-    timeout: 5000,  // 请求超时时间
+    baseURL: '#',
+      timeout: 5000  // 请求超时时间
 });
 
 let timer

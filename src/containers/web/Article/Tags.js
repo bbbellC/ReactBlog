@@ -4,8 +4,6 @@ import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Icon, Tag, Divider } from 'antd'
 
-const mapStateToProps = state => ({})
-
 @connect(state => ({
   colorList: state.common.colorList
 }))

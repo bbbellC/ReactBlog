@@ -8,6 +8,8 @@ let Reply = model.Reply;
 let Tag = model.Tag;
 let User = model.User;
 
+const { checkAuth } = require('../lib/token')
+
 //查询文章列表
 const getArticleList = async (ctx) => {
     console.log("in getArticleList..")
@@ -81,12 +83,12 @@ console.log("get getArticleById...");
 const create = async (ctx) => {
     const isAuth = checkAuth(ctx)
     if (isAuth) {
-	const { title, content, categories, tags } = ctx.request.body
+	    const { title, content, categories, tags } = ctx.request.body
     	const tagList = tags.map(t => ({ name: t }))
     	const categoryList = categories.map(c => ({ name: c }))
-    	const data = await ArticleModel.create(
+    	const data = await Article.create(
     	    { title, content, tags: tagList, categories: categoryList },
-    	    { include: [TagModel, CategoryModel] }
+    	    { include: [Tag, Category] }
     	)
     	ctx.body = { code: 200, message: '成功创建文章', data }
     }
@@ -95,6 +97,7 @@ const create = async (ctx) => {
 
 module.exports = {
     'GET /article/getList': getArticleList,
-    'GET /article/:id': getArticleById
+    'GET /article/:id': getArticleById,
+    'POST /article/create': create
 };
 

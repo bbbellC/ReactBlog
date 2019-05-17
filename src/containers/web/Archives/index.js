@@ -23,7 +23,6 @@ class Archives extends Component {
     axios
       .get('/article/getList', { params: { page, pageSize: 15 } })
       .then(res => {
-        console.log(res)
         const list = groupBy(res.rows, item => item.createdAt.slice(0, 4))
         this.setState({ list, total: res.count, loading: false })
       })
@@ -31,7 +30,7 @@ class Archives extends Component {
   }
 
   render() {
-    const { list, total, current, loading } = this.state
+    const { list, total, loading } = this.state
     return (
       <div className="archives content-inner-wrapper">
         <Spin tip="马不停蹄加载中..." spinning={loading}>

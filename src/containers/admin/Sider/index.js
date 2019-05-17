@@ -4,7 +4,7 @@ import { Menu, Icon } from 'antd';
 
 const SubMenu = Menu.SubMenu;
 
-class AdminSider extends React.Component {
+class AdminSider extends Component {
   // submenu keys of first level
   rootSubmenuKeys = ['article', 'user'];
 

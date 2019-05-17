@@ -41,7 +41,7 @@ class AuthModel extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Modal
-        title={type == 'login' ? '登录' : '注册'}
+        title={type === 'login' ? '登录' : '注册'}
         width={320}
         footer={null}
         onCancel={this.handleClose}
@@ -64,7 +64,7 @@ class AuthModel extends Component {
           </FormItem>
           <FormItem>
             <Button type="primary" block htmlType="submit">
-              {type == 'login' ? '登录' : '注册'}
+              {type === 'login' ? '登录' : '注册'}
             </Button>
           </FormItem>
         </Form>
